@@ -1,6 +1,11 @@
 from app.customers import create_customer
-from app.accounts import create_account
-from app.transactions import deposit, withdraw, transfer
+from app.accounts import create_account, view_balance
+from app.transactions import (
+    deposit,
+    withdraw,
+    transfer,
+    view_transaction_history
+)
 
 
 def display_menu():
@@ -12,7 +17,9 @@ def display_menu():
     print("3. Deposit")
     print("4. Withdraw")
     print("5. Transfer Money")
-    print("6. Exit")
+    print("6. View Account Balance")
+    print("7. View Transaction History")
+    print("8. Exit")
     print("=" * 40)
 
 
@@ -40,11 +47,15 @@ def main():
         elif choice == "2":
             try:
                 customer_id = int(input("Customer ID: "))
+
                 account_type = input(
                     "Account type (SAVINGS/CURRENT): "
                 ).strip().upper()
 
-                create_account(customer_id, account_type)
+                create_account(
+                    customer_id,
+                    account_type
+                )
 
             except ValueError:
                 print("Customer ID must be a number.")
@@ -54,7 +65,10 @@ def main():
                 account_id = int(input("Account ID: "))
                 amount = input("Deposit amount: ")
 
-                deposit(account_id, amount)
+                deposit(
+                    account_id,
+                    amount
+                )
 
             except ValueError:
                 print("Account ID must be a number.")
@@ -64,7 +78,10 @@ def main():
                 account_id = int(input("Account ID: "))
                 amount = input("Withdrawal amount: ")
 
-                withdraw(account_id, amount)
+                withdraw(
+                    account_id,
+                    amount
+                )
 
             except ValueError:
                 print("Account ID must be a number.")
@@ -91,11 +108,29 @@ def main():
                 print("Account IDs must be numbers.")
 
         elif choice == "6":
+            try:
+                account_id = int(input("Account ID: "))
+
+                view_balance(account_id)
+
+            except ValueError:
+                print("Account ID must be a number.")
+
+        elif choice == "7":
+            try:
+                account_id = int(input("Account ID: "))
+
+                view_transaction_history(account_id)
+
+            except ValueError:
+                print("Account ID must be a number.")
+
+        elif choice == "8":
             print("Thank you for using the Banking System.")
             break
 
         else:
-            print("Invalid option. Please select 1-6.")
+            print("Invalid option. Please select 1-8.")
 
 
 if __name__ == "__main__":

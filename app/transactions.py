@@ -310,3 +310,69 @@ def transfer(from_account_id, to_account_id, amount):
     finally:
         cursor.close()
         connection.close()
+
+def view_transaction_history(account_id):
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    try:
+        cursor.execute(
+            """
+            SELECT account_number
+            FROM accounts
+            WHERE account_id = %s
+            """,
+            (account_id,)
+        )
+
+        account = cursor.fetchone()
+
+        if not account:
+            print("Account not found.")
+            return
+
+        cursor.execute(
+            """
+            SELECT
+                transaction_type,
+                amount,
+                reference,
+                description,
+                created_at
+            FROM transactions
+            WHERE account_id = %s
+            ORDER BY created_at DESC
+            """,
+            (account_id,)
+        )
+
+        transactions = cursor.fetchall()
+
+        print("\n" + "=" * 70)
+        print(f"TRANSACTION HISTORY - {account[0]}")
+        print("=" * 70)
+
+        if not transactions:
+            print("No transactions found.")
+            return
+
+        for transaction in transactions:
+            transaction_type = transaction[0]
+            amount = transaction[1]
+            reference = transaction[2]
+            description = transaction[3]
+            created_at = transaction[4]
+
+            print(f"Type:        {transaction_type}")
+            print(f"Amount:      R{amount:.2f}")
+            print(f"Reference:   {reference}")
+            print(f"Description: {description}")
+            print(f"Date:        {created_at}")
+            print("-" * 70)
+
+    except Exception as error:
+        print(f"Unable to retrieve transaction history: {error}")
+
+    finally:
+        cursor.close()
+        connection.close()
