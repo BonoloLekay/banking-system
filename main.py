@@ -1,13 +1,15 @@
-from app.accounts import create_account
+from app.transactions import deposit
 
 
 def main():
-    customer_id = int(input("Customer ID: "))
-    account_type = input(
-        "Account type (SAVINGS/CURRENT): "
-    ).strip().upper()
+    try:
+        account_id = int(input("Account ID: "))
+        amount = input("Deposit amount: ")
 
-    create_account(customer_id, account_type)
+        deposit(account_id, amount)
+
+    except ValueError:
+        print("Account ID must be a number.")
 
 
 if __name__ == "__main__":

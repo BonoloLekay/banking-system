@@ -29,3 +29,27 @@ CREATE TABLE accounts (
         FOREIGN KEY (customer_id)
         REFERENCES customers(customer_id)
 );
+
+CREATE TABLE transactions (
+    transaction_id INT AUTO_INCREMENT PRIMARY KEY,
+    account_id INT NOT NULL,
+    transaction_type ENUM(
+        'DEPOSIT',
+        'WITHDRAWAL',
+        'TRANSFER_IN',
+        'TRANSFER_OUT'
+    ) NOT NULL,
+    amount DECIMAL(15,2) NOT NULL,
+    reference VARCHAR(50) NOT NULL UNIQUE,
+    description VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_transaction_account
+        FOREIGN KEY (account_id)
+        REFERENCES accounts(account_id),
+
+    CONSTRAINT chk_transaction_amount
+        CHECK (amount > 0)
+);
+
+SELECT * FROM accounts;
