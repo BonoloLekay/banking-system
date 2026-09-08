@@ -8,8 +8,8 @@ def generate_reference():
     return f"TXN-{uuid.uuid4().hex[:10].upper()}"
 
 
-def deposit(account_id, amount):
-    connection = get_connection()
+def deposit(account_id, amount, testing=False):
+    connection = get_connection(testing=testing)
     cursor = connection.cursor()
 
     try:
@@ -87,8 +87,8 @@ def deposit(account_id, amount):
         cursor.close()
         connection.close()
 
-def withdraw(account_id, amount):
-    connection = get_connection()
+def withdraw(account_id, amount, testing=False):
+    connection = get_connection(testing=testing)
     cursor = connection.cursor()
 
     try:
@@ -173,8 +173,8 @@ def withdraw(account_id, amount):
         cursor.close()
         connection.close()
 
-def transfer(from_account_id, to_account_id, amount):
-    connection = get_connection()
+def transfer(from_account_id, to_account_id, amount, testing= False):
+    connection = get_connection(testing=testing)
     cursor = connection.cursor()
 
     try:
@@ -311,8 +311,8 @@ def transfer(from_account_id, to_account_id, amount):
         cursor.close()
         connection.close()
 
-def view_transaction_history(account_id):
-    connection = get_connection()
+def view_transaction_history(account_id, testing = False):
+    connection = get_connection(testing=testing)
     cursor = connection.cursor()
 
     try:
