@@ -1,0 +1,138 @@
+:root {
+    --brown-dark: #2f211b;
+    --brown: #6f4e37;
+    --brown-medium: #8b654b;
+    --brown-light: #c9a98f;
+
+    --cream: #f7f1eb;
+    --cream-dark: #eee2d6;
+
+    --text-dark: #2c211c;
+    --text-muted: #76675f;
+
+    --white: #ffffff;
+    --border: #e4d7cc;
+}
+
+body {
+    background-color: var(--cream);
+    color: var(--text-dark);
+    font-family: Arial, sans-serif;
+}
+
+/* NAVBAR */
+
+.navbar {
+    background-color: var(--brown-dark) !important;
+    padding-top: 14px;
+    padding-bottom: 14px;
+}
+
+.navbar-brand {
+    color: var(--white) !important;
+    font-weight: 700;
+}
+
+.nav-link {
+    color: #eadfd7 !important;
+}
+
+.nav-link:hover {
+    color: var(--white) !important;
+}
+
+/* HERO */
+
+.hero {
+    padding: 80px 0;
+}
+
+.min-vh-75 {
+    min-height: 75vh;
+}
+
+.hero h1 {
+    color: var(--brown-dark);
+}
+
+.text-secondary {
+    color: var(--text-muted) !important;
+}
+
+/* BADGE */
+
+.badge.text-bg-primary {
+    background-color: var(--cream-dark) !important;
+    color: var(--brown) !important;
+    padding: 8px 12px;
+    border-radius: 20px;
+}
+
+/* PRIMARY BUTTON */
+
+.btn-primary {
+    background-color: var(--brown) !important;
+    border-color: var(--brown) !important;
+    color: var(--white) !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: var(--brown-dark) !important;
+    border-color: var(--brown-dark) !important;
+}
+
+/* SECONDARY BUTTON */
+
+.btn-outline-dark {
+    color: var(--brown) !important;
+    border-color: var(--brown) !important;
+}
+
+.btn-outline-dark:hover {
+    background-color: var(--brown) !important;
+    border-color: var(--brown) !important;
+    color: var(--white) !important;
+}
+
+/* CARDS */
+
+.card {
+    background-color: var(--white);
+    border: 1px solid var(--border) !important;
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(47, 33, 27, 0.10) !important;
+}
+
+.card h3 {
+    color: var(--brown-dark);
+}
+
+/* FEATURES */
+
+.feature-item {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-dark);
+}
+
+.feature-item:last-child {
+    border-bottom: none;
+}
+
+/* FORM CONTROLS - FOR LOGIN/REGISTER LATER */
+
+.form-control:focus {
+    border-color: var(--brown-medium);
+    box-shadow: 0 0 0 0.2rem rgba(111, 78, 55, 0.15);
+}
+
+
+
+a {
+    color: var(--brown);
+}
+
+a:hover {
+    color: var(--brown-dark);
+}
