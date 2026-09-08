@@ -1,15 +1,20 @@
-from app.transactions import withdraw
+from app.transactions import transfer
 
 
 def main():
     try:
-        account_id = int(input("Account ID: "))
-        amount = input("Withdrawal amount: ")
+        from_account_id = int(input("From Account ID: "))
+        to_account_id = int(input("To Account ID: "))
+        amount = input("Transfer amount: ")
 
-        withdraw(account_id, amount)
+        transfer(
+            from_account_id,
+            to_account_id,
+            amount
+        )
 
     except ValueError:
-        print("Account ID must be a number.")
+        print("Account IDs must be numbers.")
 
 
 if __name__ == "__main__":
