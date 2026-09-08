@@ -1,12 +1,12 @@
-from app.transactions import deposit
+from app.transactions import withdraw
 
 
 def main():
     try:
         account_id = int(input("Account ID: "))
-        amount = input("Deposit amount: ")
+        amount = input("Withdrawal amount: ")
 
-        deposit(account_id, amount)
+        withdraw(account_id, amount)
 
     except ValueError:
         print("Account ID must be a number.")

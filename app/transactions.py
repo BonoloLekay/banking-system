@@ -86,3 +86,89 @@ def deposit(account_id, amount):
     finally:
         cursor.close()
         connection.close()
+
+def withdraw(account_id, amount):
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    try:
+        amount = Decimal(str(amount))
+
+        if amount <= 0:
+            print("Withdrawal amount must be greater than zero.")
+            return
+
+        cursor.execute(
+            """
+            SELECT balance, status
+            FROM accounts
+            WHERE account_id = %s
+            """,
+            (account_id,)
+        )
+
+        account = cursor.fetchone()
+
+        if not account:
+            print("Account not found.")
+            return
+
+        balance = account[0]
+        status = account[1]
+
+        if status != "ACTIVE":
+            print("Transactions are only allowed on active accounts.")
+            return
+
+        if amount > balance:
+            print("Insufficient funds.")
+            return
+
+        reference = generate_reference()
+
+        cursor.execute(
+            """
+            UPDATE accounts
+            SET balance = balance - %s
+            WHERE account_id = %s
+            """,
+            (amount, account_id)
+        )
+
+        cursor.execute(
+            """
+            INSERT INTO transactions (
+                account_id,
+                transaction_type,
+                amount,
+                reference,
+                description
+            )
+            VALUES (%s, %s, %s, %s, %s)
+            """,
+            (
+                account_id,
+                "WITHDRAWAL",
+                amount,
+                reference,
+                "Cash withdrawal"
+            )
+        )
+
+        connection.commit()
+
+        print("Withdrawal successful.")
+        print(f"Amount: R{amount:.2f}")
+        print(f"Reference: {reference}")
+
+    except InvalidOperation:
+        connection.rollback()
+        print("Invalid withdrawal amount.")
+
+    except Exception as error:
+        connection.rollback()
+        print(f"Withdrawal failed: {error}")
+
+    finally:
+        cursor.close()
+        connection.close()
